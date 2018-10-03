@@ -25,5 +25,18 @@ RSpec.describe Validacity::BaseValidator do
         expect(user.valid?).to eq(false)
       end
     end
+
+    context "defined by class methods" do
+      let(:user) do
+        User.include(Validacity::Validatable)
+        User.validacity_validators << :email
+        user = User.new(name: "Leo", email: "@example.com")
+        user
+      end
+
+      it "should be valid" do
+        expect(user.invalid?).to eq(true)
+      end
+    end
   end
 end

@@ -7,8 +7,10 @@ module Validacity
     end
 
     def search_paths(*paths)
-      @options[:search_paths] = paths unless paths.empty?
-      @options[:search_paths]
+      @options[:search_paths] ||= []
+      return @options[:search_paths] if paths.empty?
+
+      @options[:search_paths].concat(paths)
     end
   end
 end

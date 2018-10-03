@@ -2,13 +2,35 @@ module Validacity
   module Validatable
     extend ActiveSupport::Concern
 
-    def valid?
+    class_methods do
+      def validations(*names)
+        names.each { |n| validacity_validators << n }
+      end
+
+      def validacity_validators
+        @_validacity_validators ||= Set.new
+      end
+
+      def new(resource)
+        instance = super
+        instance.validacity_validators.merge(validacity_validators.dup)
+        instance
+      end
+    end
+
+    def validacity_validators
+      @_validacity_validators ||= Set.new
+    end
+
+    def valid?(context = nil)
       super
-      validacity_validators_run
+      validacity_validators_run(context)
       errors.empty?
     end
 
-    def validacity_validators_run
+    private
+
+    def validacity_validators_run(_context = nil)
       each_validator_instance(&:validate)
     end
 
@@ -21,10 +43,6 @@ module Validacity
         end
         yield(validator)
       end
-    end
-
-    def validacity_validators
-      @_validacity_validators ||= Set.new
     end
   end
 end
