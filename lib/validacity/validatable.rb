@@ -47,7 +47,7 @@ module Validacity
           validation = Validacity.find_validation(name)&.new(self)
           @_validacity_validations_instances[name] = validation if validation
         end
-        yield(validation)
+        yield(validation) if validation
       end
     end
   end
