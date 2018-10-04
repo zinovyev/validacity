@@ -1,16 +1,26 @@
 # Validacity
 
-Move your validation logic out of your models or form objects.
+Move validation definitions out of you models and form objects.
 
 ## Usage
 
-You can append validators on-fly and then remove some of them if not needed.
+You can apply multiple sets of validation rules on-fly,
+remove any them if not needed and re-validate object against
+new rules afterwards.
 
-It can be very suitable if you need to validate different states of the same object differently. Say you're using a state machine and each state have it's own field set and the fields from other satates shouldn't be validated at this time.
+By the way, the validation errors will be putten to the object
+so all your view helpers will be available to display the error list.
 
-Or perhaps you just have to many constructions like `validate :blablabla, presence: true` in your model and you want to get rid of it.
+This approach will suitable if you need to validate different states
+of the same object differently. Say you're using a state machine
+and each state has it's own field set and the fields from the other
+satates shouldn't be validated at this time.
 
-All you need is to add a concern to your model:
+Or perhaps you just have to many constructions like
+`validate :blablabla, presence: true` in your model class and you want to
+get rid of it so you can focus on buisiness logic.
+
+You can add a concern to your model so it becomes **validatable**:
 
 ```ruby
 
@@ -23,7 +33,13 @@ end
 
 ```
 
-And generate a validator:
+Generate new validator:
+
+```bash
+
+$ bundle exec rails g validacity:validation UserPersonalData
+
+```
 
 ```ruby
 
@@ -36,39 +52,59 @@ end
 
 ```
 
-Now call validator with the regular methods like:
+Now let's try to validate your user object:
 
 
 ```ruby
 
-user.valid?
+user = User.new
+
+user.valid? # => false
+
+user.name = "John"
+
+uesr.valid? # => true
 
 ```
 
 ## Installation
+
 Add this line to your application's Gemfile:
 
 ```ruby
+
 gem 'validacity'
+
 ```
 
 And then execute:
+
 ```bash
+
 $ bundle
+
 ```
 
 Now run the validator installation command:
+
 ```bash
+
 $ bundle exec rails g validacity:install
+
 ```
 
 And the event validator:
+
 ```bash
+
 $ bundle exec rails g validacity:validator Event
+
 ```
 
 ## Contributing
+
 Contribution directions go here.
 
 ## License
+
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
