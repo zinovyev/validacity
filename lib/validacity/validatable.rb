@@ -44,8 +44,8 @@ module Validacity
       @_validacity_validations_instances ||= {}
       validacity_validations.each do |name|
         unless (validation = @_validacity_validations_instances[name])
-          validation = Validacity.find_validation(name).new(self)
-          @_validacity_validations_instances[name] = validation
+          validation = Validacity.find_validation(name)&.new(self)
+          @_validacity_validations_instances[name] = validation if validation
         end
         yield(validation)
       end
