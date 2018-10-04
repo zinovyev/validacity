@@ -33,6 +33,16 @@ end
 
 ```
 
+Or you can add it directly to your object:
+
+```ruby
+
+user = User.new
+user.validations :user_personal_data
+
+```
+
+
 Generate new validation:
 
 ```bash

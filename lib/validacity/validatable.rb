@@ -5,6 +5,7 @@ module Validacity
     class_methods do
       def validations(*names)
         names.each { |n| validacity_validations << n }
+        validacity_validations
       end
 
       def validacity_validations
@@ -16,6 +17,11 @@ module Validacity
         instance.validacity_validations.merge(validacity_validations.dup)
         instance
       end
+    end
+
+    def validations(*names)
+      names.each { |n| validacity_validations << n }
+      validacity_validations
     end
 
     def validacity_validations
