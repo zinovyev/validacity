@@ -17,7 +17,7 @@ module Validacity
           require_dependency "validacity"
 
           Validacity.configure do |config|
-            config.search_paths "#{__dir__}/../app/validations/**/*_validation.rb"
+            config.search_paths "#{__dir__}/../../app/validations/**/*_validation.rb"
           end
         RUBY
         create_file "config/initializers/validacity_initializer.rb", content
