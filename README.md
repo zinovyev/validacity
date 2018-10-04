@@ -33,7 +33,7 @@ end
 
 ```
 
-Generate new validator:
+Generate new validation:
 
 ```bash
 
@@ -43,11 +43,11 @@ $ bundle exec rails g validacity:validation UserPersonalData
 
 ```ruby
 
-# app/validators/user_personal_data_validator.rb
+# app/validations/user_personal_data_validation.rb
 
-class UserPersonalDataValidator
+class UserPersonalDataValidation
   validate :name, presence_of: true
-  # ...a ton of different validators
+  # ...a ton of different validations
 end
 
 ```
@@ -85,7 +85,7 @@ $ bundle
 
 ```
 
-Now run the validator installation command:
+Now run the validation installation command:
 
 ```bash
 
@@ -93,11 +93,11 @@ $ bundle exec rails g validacity:install
 
 ```
 
-And the event validator:
+And the event validation:
 
 ```bash
 
-$ bundle exec rails g validacity:validator Event
+$ bundle exec rails g validacity:validation Event
 
 ```
 

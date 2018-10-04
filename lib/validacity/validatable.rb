@@ -4,44 +4,44 @@ module Validacity
 
     class_methods do
       def validations(*names)
-        names.each { |n| validacity_validators << n }
+        names.each { |n| validacity_validations << n }
       end
 
-      def validacity_validators
-        @_validacity_validators ||= Set.new
+      def validacity_validations
+        @_validacity_validations ||= Set.new
       end
 
       def new(resource)
         instance = super
-        instance.validacity_validators.merge(validacity_validators.dup)
+        instance.validacity_validations.merge(validacity_validations.dup)
         instance
       end
     end
 
-    def validacity_validators
-      @_validacity_validators ||= Set.new
+    def validacity_validations
+      @_validacity_validations ||= Set.new
     end
 
     def valid?(context = nil)
       super
-      validacity_validators_run(context)
+      validacity_validations_run(context)
       errors.empty?
     end
 
     private
 
-    def validacity_validators_run(_context = nil)
-      each_validator_instance(&:validate)
+    def validacity_validations_run(_context = nil)
+      each_validation_instance(&:validate)
     end
 
-    def each_validator_instance
-      @_validacity_validators_instances ||= {}
-      validacity_validators.each do |name|
-        unless (validator = @_validacity_validators_instances[name])
-          validator = Validacity.find_validator(name).new(self)
-          @_validacity_validators_instances[name] = validator
+    def each_validation_instance
+      @_validacity_validations_instances ||= {}
+      validacity_validations.each do |name|
+        unless (validation = @_validacity_validations_instances[name])
+          validation = Validacity.find_validation(name).new(self)
+          @_validacity_validations_instances[name] = validation
         end
-        yield(validator)
+        yield(validation)
       end
     end
   end

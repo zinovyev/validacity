@@ -17,16 +17,16 @@ module Validacity
           require_dependency "validacity"
 
           Validacity.configure do |config|
-            config.search_paths "#{__dir__}/../app/validators/**/*_validator.rb"
+            config.search_paths "#{__dir__}/../app/validations/**/*_validation.rb"
           end
         RUBY
         create_file "config/initializers/validacity_initializer.rb", content
       end
 
       def copy_application_policy
-        validator_file = File.join("app/validators", class_path,
-                                   "application_validator.rb")
-        template "application_validator.rb", validator_file
+        validation_file = File.join("app/validations", class_path,
+                                   "application_validation.rb")
+        template "application_validation.rb", validation_file
       end
 
       include Thor::Actions

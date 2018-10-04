@@ -3,7 +3,7 @@ require "active_model"
 
 require "validacity/version"
 require "validacity/configuration"
-require "validacity/base_validator"
+require "validacity/base_validation"
 require "validacity/validatable"
 
 module Validacity
@@ -16,23 +16,23 @@ module Validacity
       yield configuration if block_given?
     end
 
-    def validators
-      @_validators ||= {}
+    def validations
+      @_validations ||= {}
     end
 
-    def find_validator(name)
-      validator = validators[name]
-      return validator if validator
+    def find_validation(name)
+      validation = validations[name]
+      return validation if validation
 
-      reload_validators
-      validators[name]
+      reload_validations
+      validations[name]
     end
 
     private
 
-    def reload_validators
-      Dir.glob(configuration.search_paths) do |validator|
-        send(require_method, validator)
+    def reload_validations
+      Dir.glob(configuration.search_paths) do |validation|
+        send(require_method, validation)
       end
     end
 

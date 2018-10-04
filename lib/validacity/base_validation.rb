@@ -1,16 +1,16 @@
 module Validacity
-  class BaseValidator
+  class BaseValidation
     include ::ActiveModel::Validations
 
     class << self
       def inherited(klass)
-        Validacity.validators[validator_name(klass)] = klass
+        Validacity.validations[validation_name(klass)] = klass
       end
 
       private
 
-      def validator_name(klass)
-        klass.name.gsub(/Validator$/, "").underscore.to_sym
+      def validation_name(klass)
+        klass.name.gsub(/Validation$/, "").underscore.to_sym
       end
     end
 

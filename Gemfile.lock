@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    validacity (0.1.0)
+    validacity (0.2.0)
       activemodel (~> 5.0)
       activesupport (~> 5.0)
       rails (~> 5.0)
