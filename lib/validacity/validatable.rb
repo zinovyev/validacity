@@ -12,7 +12,7 @@ module Validacity
         @_validacity_validations ||= Set.new
       end
 
-      def new(resource)
+      def new(*args)
         instance = super
         instance.validacity_validations.merge(validacity_validations.dup)
         instance
